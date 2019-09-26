@@ -4,6 +4,8 @@ jobs:
   # Variable expansion in working_directory not supported at this time
   # You will need to modify the code below to reflect your github account/repo setup
   working_directory: /go/src/github.com/hercules08/invoicer-chapter2
+  environment:
+    CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
   docker:
    - image: circleci/golang:1.10
   steps:
@@ -26,7 +28,7 @@ jobs:
        EOF
    - run: mkdir -p "${GOPATH_BASE}"
    - run: mkdir -p "${GOPATH_HEAD}/bin"
-   #- run: mkdir -p $CIRCLE_ARTIFACTS    
+   - run: mkdir -p "${CIRCLE_ARTIFACTS}"
   #  - run:
   #     name: Testing application
   #     command: |
@@ -46,5 +48,5 @@ jobs:
              sudo tee ${CIRCLE_ARTIFACTS}/docker-image-shasum256.txt;
            docker push ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME};
          fi
-  #  - store_artifacts:
-  #       path: $CIRCLE_ARTIFACTS/docker-image-shasum256.txt
+   - store_artifacts:
+        path: ${CIRCLE_ARTIFACTS}/docker-image-shasum256.txt
