@@ -47,4 +47,4 @@ jobs:
            docker push ${DOCKER_REPO}/${CIRCLE_PROJECT_REPONAME};
          fi
    - store_artifacts:
-        path: $CIRCLE_ARTIFACTS;
+        path: $CIRCLE_ARTIFACTS
